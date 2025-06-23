@@ -20,9 +20,10 @@ REGIONS = ["서울", "부산", "대구", "인천", "광주", "대전", "울산",
 plt.rcParams["font.family"] = "Malgun Gothic"
 
 def extract_abbreviation(name: str) -> str:
-    print(f"extract_abbreviation 받은 값: {name}")  # 값 확인용
-    if not name:
-        return ""  # 혹은 예외 처리
+    if not name or not isinstance(name, str):
+        print(f"⚠️ extract_abbreviation에 잘못된 값 들어옴: {name}")
+        return ""
+    print(f"extract_abbreviation 받은 값: {name}")
     match = re.search(r"\(([^)]+)\)", name)
     return match.group(1) if match else ""
 
