@@ -90,13 +90,14 @@ def show_total_graph(year_range):
                 region_x = [year + i * bar_width for year in summary["연도"]]
                 ax.bar(region_x, summary["건수"], width=bar_width, label=region, color=colors[i])
                 ax.tick_params(axis='x', labelrotation=15)            
-            ax.legend(
-                    title="지역",
-                    fontsize=6,
-                    bbox_to_anchor=(1.05, 1),  # 오른쪽 바깥
-                    loc='upper left',
-                    fontproperties=font_prop
-                )            
+                ax.legend(
+                title="지역",
+                fontsize=6,
+                bbox_to_anchor=(1.05, 1),
+                loc='upper left',
+                prop=font_prop  # ← 여기로 교체!
+                )
+            
             ax.xaxis.set_major_formatter(FormatStrFormatter('%.0f'))
             ax.yaxis.set_major_formatter(FormatStrFormatter('%.0f'))
             tick_positions = [year + bar_width * (len(regions)/ 2 -0.5)for year in years]
