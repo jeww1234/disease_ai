@@ -4,6 +4,10 @@ import pandas as pd
 from matplotlib import colormaps
 import numpy as np
 import re
+import matplotlib.font_manager as fm
+
+
+
 
 from generate_prompt import generate_prompt
 from itertools import product
@@ -13,11 +17,13 @@ from save_csv import read_excel
 from call_AI import call_solar_ai
 from translate import translate
 
+font_path = "./fonts/malgun.ttf"
+font_prop = fm.FontProperties(fname=font_path).get_name()
+plt.rcParams["font.family"] = font_prop
+
 REGIONS = ["서울", "부산", "대구", "인천", "광주", "대전", "울산", 
             "경기", "강원", "충북", "충남", "전북", "전남", "경북", "경남",
             "제주", "세종"]
-
-plt.rcParams["font.family"] = "Malgun Gothic"
 
 def extract_abbreviation(name: str) -> str:
     if not name or not isinstance(name, str):
