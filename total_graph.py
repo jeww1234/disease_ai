@@ -94,7 +94,8 @@ def show_total_graph(year_range):
                     title="지역",
                     fontsize=6,
                     bbox_to_anchor=(1.05, 1),  # 오른쪽 바깥
-                    loc='upper left'
+                    loc='upper left',
+                    fontproperties=font_prop
                 )            
             ax.xaxis.set_major_formatter(FormatStrFormatter('%.0f'))
             ax.yaxis.set_major_formatter(FormatStrFormatter('%.0f'))
