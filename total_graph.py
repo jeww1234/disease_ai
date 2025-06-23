@@ -95,7 +95,9 @@ def show_total_graph(year_range):
                 fontsize=6,
                 bbox_to_anchor=(1.05, 1),
                 loc='upper left',
-                prop=font_prop  # ← 여기로 교체!
+                prop=font_prop,  # ← 여기로 교체!
+                title_fontproperties=font_prop  # ← 이게 핵심!
+
                 )
             
             ax.xaxis.set_major_formatter(FormatStrFormatter('%.0f'))
