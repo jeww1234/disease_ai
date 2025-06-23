@@ -3,13 +3,13 @@ import streamlit as st
 
 def call_solar_ai(prompt):
     response = requests.post(
-        "https://david-translated-immigrants-progressive.trycloudflare.com/api/generate",
-        json={
-            "model": "solar",
-            "prompt": prompt,
-            "stream": False
-        }
-    )
+    "https://david-translated-immigrants-progressive.trycloudflare.com/api/generate",
+    json={
+        "model": "solar",
+        "prompt": prompt,
+        "stream": False
+    }
+)
 
     print("status_code:", response.status_code)
     print("response.text:", response.text)
