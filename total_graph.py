@@ -1,14 +1,10 @@
 import streamlit as st
 import matplotlib.pyplot as plt
 import pandas as pd
-from matplotlib import colormaps
+import matplotlib.cm as cm
 import numpy as np
 import re
-import matplotlib.font_manager as fm
 
-
-
-from pathlib import Path
 from generate_prompt import generate_prompt
 from itertools import product
 from matplotlib.ticker import FormatStrFormatter
@@ -17,28 +13,21 @@ from clear_data import read_excel
 from call_AI import call_solar_ai
 from translate import translate
 
-font_path = Path(__file__).parent / "fonts_gothic" / "malgun.ttf"
-font_prop = fm.FontProperties(fname=font_path).get_name()
-plt.rcParams["font.family"] = font_prop
-
 REGIONS = ["서울", "부산", "대구", "인천", "광주", "대전", "울산", 
             "경기", "강원", "충북", "충남", "전북", "전남", "경북", "경남",
             "제주", "세종"]
 
+plt.rcParams["font.family"] = "Malgun Gothic"
+
 def extract_abbreviation(name: str) -> str:
-    if not name or not isinstance(name, str):
-        print(f"⚠️ extract_abbreviation에 잘못된 값 들어옴: {name}")
-        return ""
-    print(f"extract_abbreviation 받은 값: {name}")
     match = re.search(r"\(([^)]+)\)", name)
-    return match.group(1) if match else ""
+    return match.group(1) if match else name
 
 
 def show_total_graph(year_range):
     all_data_by_level = {1: [], 2: [], 3: []}
     for year in year_range:
         excel_path = IN_DIR / f"{year}년.xlsx"
-        st.write("📂 엑셀 경로 존재 여부:", excel_path.exists())
         level1, level2, level3 = read_excel(excel_path)        
 
         for level_df, level in zip([level1, level2, level3], [1, 2, 3]):
@@ -61,27 +50,18 @@ def show_total_graph(year_range):
 """, unsafe_allow_html=True)
     tabs = st.tabs(["1급 질병", "2급 질병", "3급 질병"])
     for level, tab in zip([1, 2, 3], tabs):
-        st.write("📄 원본 level_df 샘플:", level_df.head())
         with tab:
-            
-
-            data = pd.concat(all_data_by_level[level])   
-            data.columns = data.columns.str.strip().str.replace("\u200b", "", regex=True) 
-            st.write("🔍 데이터프레임 컬럼:", data.columns.tolist())
+            data = pd.concat(all_data_by_level[level])    
             full_data = data.copy()
-            # 질병명 컬럼을 문자열로 한 번만 변환            
-            data["질병명"] = data["질병명"].astype(str)   
-            st.write("🔍 질병명:", data["질병명"].unique())
-            st.dataframe(data.head())  # 또는 data.tail()
+            # 질병명 컬럼을 문자열로 한 번만 변환
+            data["질병명"] = data["질병명"].astype(str)    
             # NaN이나 float 섞인 문제 방지
-            disease_options = sorted(data["질병명"].unique())   
-            st.write("🔍 질병명 리스트:", disease_options)
+            disease_options = sorted(data["질병명"].unique())    
             # 지역 선택
             regions = st.multiselect("지역 선택", options=REGIONS, default='서울', key=f"region_{level}")    
             # 질병 선택
             disease = st.selectbox("질병 선택", disease_options, key=f"disease_{level}")                            
-            st.write("🔍 현재 선택된 질병:", disease) 
-            color_map = colormaps['tab20']  # 20개까지 구분 가능한 색상
+            color_map = cm.get_cmap('tab20')  # 20개까지 구분 가능한 색상
             colors = [color_map(i / len(regions)) for i in range(len(regions))]
             years = sorted(data["연도"].unique())            
             bar_width = 0.8 / len(regions)
@@ -124,10 +104,8 @@ def show_total_graph(year_range):
                             result = translate(ai_response)
                             st.write(result)
 
-    
 
 
 if __name__ == "__main__":    
     year_range = [int(y) for y in range(2020, 2025)]
     show_total_graph(year_range)
-    
