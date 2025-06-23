@@ -15,11 +15,12 @@ def read_excel(file_name: str) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame
         st.write("clear의 매개변수와 같나?", df)
         return clear_data(df)
     except FileNotFoundError:
-        print(f"[오류] {file_name} 파일을 찾을 수 없습니다.")
+        st.error(f"[❌ 파일 없음] {file_name} 파일을 찾을 수 없습니다.")
     except ValueError as ve:
-        print(f"[오류] 엑셀 열 범위 또는 형식 문제 {ve}")
+        st.error(f"[❌ 열 범위 문제] 엑셀 열 범위 또는 형식 문제: {ve}")
     except Exception as e:
-        print(f"[예상치 못한 에러 발생] : {e}")
+        st.error(f"[❌ 예외 발생] 예상치 못한 에러: {e}")
+
 
     return pd.DataFrame(), pd.DataFrame(), pd.DataFrame()
 
