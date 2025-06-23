@@ -24,7 +24,7 @@ REGIONS = ["서울", "부산", "대구", "인천", "광주", "대전", "울산",
 
 st.set_page_config(layout="wide")
 
-font_path = os.path.join(os.path.dirname(__file__), "fonts_na", "NanumGothic-Regular.ttf")
+font_path = os.path.join(os.path.dirname(__file__), "fonts_na", "NanumGothic.ttf")
 font_name = fm.FontProperties(fname=font_path).get_name()
 plt.rcParams["font.family"] = font_name
 plt.rcParams["axes.unicode_minus"] = False
