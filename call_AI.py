@@ -4,8 +4,9 @@ import time
 
 def call_solar_ai(prompt):
     time.sleep(1)  # 요청 전 1초 대기
+    OLLAMA_HOST = "http://192.168.20.72:11434"
     response = requests.post(
-        "http://localhost:11434/api/generate",  # ✅ 원래 로컬 주소로 복원
+                f"{OLLAMA_HOST}/api/generate",  # ✅ 원래 로컬 주소로 복원
         json={
             "model": "solar",
             "prompt": prompt,
