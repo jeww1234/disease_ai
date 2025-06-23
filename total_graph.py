@@ -5,6 +5,8 @@ import matplotlib.cm as cm
 import numpy as np
 import re
 
+
+import matplotlib.font_manager as fm
 from generate_prompt import generate_prompt
 from itertools import product
 from matplotlib.ticker import FormatStrFormatter
@@ -17,7 +19,10 @@ REGIONS = ["서울", "부산", "대구", "인천", "광주", "대전", "울산",
             "경기", "강원", "충북", "충남", "전북", "전남", "경북", "경남",
             "제주", "세종"]
 
-plt.rcParams["font.family"] = "Malgun Gothic"
+font_path = "./fonts_na/NanumGothic.ttf"  # 또는 os.path.join(os.path.dirname(__file__), "fonts_na", "NanumGothic.ttf")
+font_prop = fm.FontProperties(fname=font_path)
+plt.rcParams["font.family"] = font_prop.get_name()
+
 
 def extract_abbreviation(name: str) -> str:
     match = re.search(r"\(([^)]+)\)", name)
