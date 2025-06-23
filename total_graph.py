@@ -52,15 +52,24 @@ def show_total_graph(year_range):
     for level, tab in zip([1, 2, 3], tabs):
         with tab:
             data = pd.concat(all_data_by_level[level])    
+            st.write("🔍 data:", data)
+
             full_data = data.copy()
             # 질병명 컬럼을 문자열로 한 번만 변환
-            data["질병명"] = data["질병명"].astype(str)    
+            st.write("🧬 data['질병명']:", data["질병명"])
+            data["질병명"] = data["질병명"].astype(str)   
+            st.write("🧬 data['질병명']:", data["질병명"])
+
             # NaN이나 float 섞인 문제 방지
             disease_options = sorted(data["질병명"].unique())    
+            st.write("🧪 unique 질병명:", data["질병명"].unique())
+
             # 지역 선택
             regions = st.multiselect("지역 선택", options=REGIONS, default='서울', key=f"region_{level}")    
             # 질병 선택
-            disease = st.selectbox("질병 선택", disease_options, key=f"disease_{level}")                            
+            disease = st.selectbox("질병 선택", disease_options, key=f"disease_{level}")    
+            st.write("🎯 선택된 disease:", disease, type(disease))
+                        
             color_map = cm.get_cmap('tab20')  # 20개까지 구분 가능한 색상
             colors = [color_map(i / len(regions)) for i in range(len(regions))]
             years = sorted(data["연도"].unique())            
