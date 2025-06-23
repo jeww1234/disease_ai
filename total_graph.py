@@ -88,6 +88,11 @@ def show_total_graph(year_range):
             ax.set_xticklabels(years, fontsize=4)
             ax.set_xlabel("년도", fontsize = 5)
             ax.set_ylabel("건수", fontsize = 5)   
+            if disease and isinstance(disease, str):
+                abbr = extract_abbreviation(disease)
+            else:
+                abbr = "질병"
+
             abbr = extract_abbreviation(disease)             
             ax.set_title(f"{abbr} 연도별 지역 비교", fontsize=5)
             fig.tight_layout(pad=0)  # 여백 줄이기
