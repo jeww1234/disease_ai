@@ -1,7 +1,7 @@
 import streamlit as st
 import matplotlib.pyplot as plt
 import pandas as pd
-import matplotlib.cm as cm
+from matplotlib import colormaps
 import numpy as np
 import re
 
@@ -20,8 +20,11 @@ REGIONS = ["서울", "부산", "대구", "인천", "광주", "대전", "울산",
 plt.rcParams["font.family"] = "Malgun Gothic"
 
 def extract_abbreviation(name: str) -> str:
+    print(f"extract_abbreviation 받은 값: {name}")  # 값 확인용
+    if not name:
+        return ""  # 혹은 예외 처리
     match = re.search(r"\(([^)]+)\)", name)
-    return match.group(1) if match else name
+    return match.group(1) if match else ""
 
 
 def show_total_graph(year_range):
@@ -61,7 +64,7 @@ def show_total_graph(year_range):
             regions = st.multiselect("지역 선택", options=REGIONS, default='서울', key=f"region_{level}")    
             # 질병 선택
             disease = st.selectbox("질병 선택", disease_options, key=f"disease_{level}")                            
-            color_map = cm.get_cmap('tab20')  # 20개까지 구분 가능한 색상
+            color_map = colormaps['tab20']  # 20개까지 구분 가능한 색상
             colors = [color_map(i / len(regions)) for i in range(len(regions))]
             years = sorted(data["연도"].unique())            
             bar_width = 0.8 / len(regions)
