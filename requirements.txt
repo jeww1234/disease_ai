@@ -6,3 +6,4 @@ deepl
 requests
 population
 pathlib
+openpyxl
