@@ -52,6 +52,7 @@ def show_total_graph(year_range):
     for level, tab in zip([1, 2, 3], tabs):
         with tab:
             data = pd.concat(all_data_by_level[level])    
+            st.write("data 함 보자",data)
             full_data = data.copy()
             # 질병명 컬럼을 문자열로 한 번만 변환
             data["질병명"] = data["질병명"].astype(str)    
@@ -88,6 +89,10 @@ def show_total_graph(year_range):
             ax.set_xticklabels(years, fontsize=4)
             ax.set_xlabel("년도", fontsize = 5)
             ax.set_ylabel("건수", fontsize = 5)  
+            
+            st.write("🧬 질병명 샘플:", data["질병명"].head(1000))
+            st.write("🧪 질병명 unique:", data["질병명"].unique())
+
             if disease:
                 abbr =extract_abbreviation(disease) 
             else:
