@@ -1,5 +1,5 @@
 import pandas as pd
-from population_ai import calculate_incidence_rate
+from population import calculate_incidence_rate
 
 def parse_count(value):
     try:
