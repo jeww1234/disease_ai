@@ -99,7 +99,7 @@ def show_total_graph(year_range):
             ax.xaxis.set_major_formatter(FormatStrFormatter('%.0f'))
             ax.yaxis.set_major_formatter(FormatStrFormatter('%.0f'))
             tick_positions = [year + bar_width * (len(regions)/ 2 -0.5)for year in years]
-            ax.set_xticks(tick_positions, fontproperties=font_prop)
+            ax.set_xticks(tick_positions)
             ax.set_xticklabels(years, fontsize=4, fontproperties=font_prop)
             ax.set_xlabel("년도", fontsize = 5, fontproperties=font_prop)
             ax.set_ylabel("건수", fontsize = 5, fontproperties=font_prop)             
