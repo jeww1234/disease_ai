@@ -24,7 +24,9 @@ REGIONS = ["서울", "부산", "대구", "인천", "광주", "대전", "울산",
 
 st.set_page_config(layout="wide")
 
+
 font_path = os.path.join(os.path.dirname(__file__), "fonts_na", "NanumGothic.ttf")
+font_prop = fm.FontProperties(fname=font_path)
 font_name = fm.FontProperties(fname=font_path).get_name()
 plt.rcParams["font.family"] = font_name
 plt.rcParams["axes.unicode_minus"] = False
@@ -97,16 +99,16 @@ def show_total_graph(year_range):
             ax.xaxis.set_major_formatter(FormatStrFormatter('%.0f'))
             ax.yaxis.set_major_formatter(FormatStrFormatter('%.0f'))
             tick_positions = [year + bar_width * (len(regions)/ 2 -0.5)for year in years]
-            ax.set_xticks(tick_positions)
-            ax.set_xticklabels(years, fontsize=4)
-            ax.set_xlabel("년도", fontsize = 5)
-            ax.set_ylabel("건수", fontsize = 5)             
+            ax.set_xticks(tick_positions, fontproperties=font_prop)
+            ax.set_xticklabels(years, fontsize=4, fontproperties=font_prop)
+            ax.set_xlabel("년도", fontsize = 5, fontproperties=font_prop)
+            ax.set_ylabel("건수", fontsize = 5, fontproperties=font_prop)             
 
             if disease:
                 abbr =extract_abbreviation(disease) 
             else:
                 abbr = "질병"         
-            ax.set_title(f"{abbr} 연도별 지역 비교", fontsize=5)
+            ax.set_title(f"{abbr} 연도별 지역 비교", fontsize=5, fontproperties=font_prop)
             fig.tight_layout(pad=0)  # 여백 줄이기
             col1, col2 = st.columns([2,1])
             with col1:                
