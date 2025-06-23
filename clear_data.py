@@ -1,10 +1,11 @@
 import pandas as pd
 from make_folder import IN_DIR
 import streamlit as st
+import matplotlib.pyplot as plt
 
 # D6부터 시작하려면 5행까지 건너뛰고 (엑셀은 0-index가 아님)
 
-
+plt.rcParams["font.family"] = "Malgun Gothic"
 def read_excel(file_name: str) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     try:
         df = pd.read_excel(
@@ -12,7 +13,6 @@ def read_excel(file_name: str) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame
             header=5,
             usecols="B:BR",
         )
-        st.write("clear의 매개변수와 같나?", df)
         return clear_data(df)
     except FileNotFoundError:
         st.error(f"[❌ 파일 없음] {file_name} 파일을 찾을 수 없습니다.")
@@ -26,14 +26,11 @@ def read_excel(file_name: str) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame
 
 def clear_data(df: pd.DataFrame):
     try:
-        st.write("valid 보다 상위", df)
         df.rename(columns={df.columns[0]: "시도"}, inplace=True)        
         valid_rows = df["시도"].notna() & df["시도"].str.strip().ne("")
-        st.write("total 보다 상위", valid_rows)
         total_row = df[valid_rows].copy()
 
         total_row.set_index("시도", inplace=True)
-        st.write("level 보다 상위", total_row)
 
         level1 = total_row.loc[:, "에볼라바이러스병":"디프테리아"]
         level2 = total_row.loc[:, "수두":"E형간염"]

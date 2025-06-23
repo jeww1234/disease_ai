@@ -34,9 +34,7 @@ def show_total_graph(year_range):
     all_data_by_level = {1: [], 2: [], 3: []}
     for year in year_range:
         excel_path = IN_DIR / f"{year}년.xlsx"
-        st.write(f"📂 {year}년 엑셀 읽기 시작")
         level1, level2, level3 = read_excel(excel_path)      
-        st.write("level1,2,3", level1, level2, level3)
 
         for level_df, level in zip([level1, level2, level3], [1, 2, 3]):
             temp = level_df.copy()
@@ -47,7 +45,6 @@ def show_total_graph(year_range):
             temp["연도"] = year
             temp["등급"] = level
             all_data_by_level[level].append(temp)
-            st.write("all data", all_data_by_level)
     # 각 등급별 탭    
     st.markdown("""
     <style>
@@ -60,7 +57,6 @@ def show_total_graph(year_range):
     for level, tab in zip([1, 2, 3], tabs):
         with tab:
             data = pd.concat(all_data_by_level[level])    
-            st.write("data 함 보자",data)
             full_data = data.copy()
             # 질병명 컬럼을 문자열로 한 번만 변환
             data["질병명"] = data["질병명"].astype(str)    
@@ -96,10 +92,7 @@ def show_total_graph(year_range):
             ax.set_xticks(tick_positions)
             ax.set_xticklabels(years, fontsize=4)
             ax.set_xlabel("년도", fontsize = 5)
-            ax.set_ylabel("건수", fontsize = 5)  
-            
-            st.write("🧬 질병명 샘플:", data["질병명"].head(1000))
-            st.write("🧪 질병명 unique:", data["질병명"].unique())
+            ax.set_ylabel("건수", fontsize = 5)             
 
             if disease:
                 abbr =extract_abbreviation(disease) 
