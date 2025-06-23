@@ -1,9 +1,9 @@
 import requests
 import streamlit as st
-#https://david-translated-immigrants-progressive.trycloudflare.com
+
 def call_solar_ai(prompt):
     response = requests.post(
-        "https://david-translated-immigrants-progressive.trycloudflare.com",
+        "https://david-translated-immigrants-progressive.trycloudflare.com/api/generate",
         json={
             "model": "solar",
             "prompt": prompt,
@@ -18,4 +18,4 @@ def call_solar_ai(prompt):
         return response.json()["response"]
     except Exception as e:
         st.write("🚨 JSON 파싱 실패:", e)
-        return ""
+        return "❌ AI 응답 파싱 실패: 응답이 없거나 JSON 형식이 아닙니다."
