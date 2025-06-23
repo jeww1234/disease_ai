@@ -2,15 +2,19 @@ import requests
 
 def call_solar_ai(prompt):
     response = requests.post(
-        "https://david-translated-immigrants-progressive.trycloudflare.com",
+        "https://your-cloudflare-url/api/generate",
         json={
             "model": "solar",
             "prompt": prompt,
             "stream": False
         }
     )
+
+    print("status_code:", response.status_code)
+    print("response.text:", response.text)
+
     try:
         return response.json()["response"]
-    except ValueError:
-        print("⚠️ JSON 응답 아님! 받은 내용:", response.text)
-        return response.text  # 필요하면 fallback으로 단순 텍스트 반환
+    except Exception as e:
+        print("🚨 JSON 파싱 실패:", e)
+        return ""
