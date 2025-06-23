@@ -1,8 +1,8 @@
 import requests
-
+#https://david-translated-immigrants-progressive.trycloudflare.com
 def call_solar_ai(prompt):
     response = requests.post(
-        "https://your-cloudflare-url/api/generate",
+        "https://david-translated-immigrants-progressive.trycloudflare.com",
         json={
             "model": "solar",
             "prompt": prompt,
