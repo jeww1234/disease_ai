@@ -38,6 +38,7 @@ def show_total_graph(year_range):
     all_data_by_level = {1: [], 2: [], 3: []}
     for year in year_range:
         excel_path = IN_DIR / f"{year}년.xlsx"
+        st.write("📂 엑셀 경로 존재 여부:", excel_path.exists())
         level1, level2, level3 = read_excel(excel_path)        
 
         for level_df, level in zip([level1, level2, level3], [1, 2, 3]):
