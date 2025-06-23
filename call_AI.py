@@ -2,11 +2,15 @@ import requests
 
 def call_solar_ai(prompt):
     response = requests.post(
-        "https://habits-messenger-confidential-wings.trycloudflare.com/api/generate",
+        "https://your-tunnel-url/api/generate",
         json={
-            "model": "solar",  # 또는 정확한 모델 이름 (예: solar:latest)
+            "model": "solar",
             "prompt": prompt,
             "stream": False
         }
     )
-    return response.json()["response"]
+    try:
+        return response.json()["response"]
+    except ValueError:
+        print("⚠️ JSON 응답 아님! 받은 내용:", response.text)
+        return response.text  # 필요하면 fallback으로 단순 텍스트 반환
