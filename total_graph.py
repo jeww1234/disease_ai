@@ -63,14 +63,17 @@ def show_total_graph(year_range):
         with tab:
             data = pd.concat(all_data_by_level[level])    
             full_data = data.copy()
-            # 질병명 컬럼을 문자열로 한 번만 변환
-            data["질병명"] = data["질병명"].astype(str)    
+            # 질병명 컬럼을 문자열로 한 번만 변환            
+            data["질병명"] = data["질병명"].astype(str)   
+
             # NaN이나 float 섞인 문제 방지
-            disease_options = sorted(data["질병명"].unique())    
+            disease_options = sorted(data["질병명"].unique())   
+            st.write("🔍 질병명 리스트:", disease_options)
             # 지역 선택
             regions = st.multiselect("지역 선택", options=REGIONS, default='서울', key=f"region_{level}")    
             # 질병 선택
             disease = st.selectbox("질병 선택", disease_options, key=f"disease_{level}")                            
+            st.write("🔍 현재 선택된 질병:", disease) 
             color_map = colormaps['tab20']  # 20개까지 구분 가능한 색상
             colors = [color_map(i / len(regions)) for i in range(len(regions))]
             years = sorted(data["연도"].unique())            
@@ -114,8 +117,10 @@ def show_total_graph(year_range):
                             result = translate(ai_response)
                             st.write(result)
 
+    
 
 
 if __name__ == "__main__":    
     year_range = [int(y) for y in range(2020, 2025)]
     show_total_graph(year_range)
+    
