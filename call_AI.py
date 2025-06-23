@@ -1,21 +1,20 @@
 import requests
-import streamlit as st
+import time
+
 
 def call_solar_ai(prompt):
+    time.sleep(1)  # 요청 전 1초 대기
     response = requests.post(
-    "https://david-translated-immigrants-progressive.trycloudflare.com/api/generate",
-    json={
-        "model": "solar",
-        "prompt": prompt,
-        "stream": False
-    }
-)
+        "http://localhost:11434/api/generate",  # ✅ 원래 로컬 주소로 복원
+        json={
+            "model": "solar",
+            "prompt": prompt,
+            "stream": False
+        }
+    )
+    return response.json()["response"]
 
-    print("status_code:", response.status_code)
-    print("response.text:", response.text)
 
-    try:
-        return response.json()["response"]
-    except Exception as e:
-        st.write("🚨 JSON 파싱 실패:", e)
-        return "❌ AI 응답 파싱 실패: 응답이 없거나 JSON 형식이 아닙니다."
+import requests
+r = requests.get("http://localhost:11434")
+print(r.text)  # 콘솔 실행
