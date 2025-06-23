@@ -5,3 +5,4 @@ numpy
 deepl
 requests
 population
+pathlib

@@ -8,7 +8,7 @@ import matplotlib.font_manager as fm
 
 
 
-
+from pathlib import Path
 from generate_prompt import generate_prompt
 from itertools import product
 from matplotlib.ticker import FormatStrFormatter
@@ -17,7 +17,7 @@ from save_csv import read_excel
 from call_AI import call_solar_ai
 from translate import translate
 
-font_path = "./fonts/malgun.ttf"
+font_path = Path(__file__).parent / "fonts" / "malgun.ttf"
 font_prop = fm.FontProperties(fname=font_path).get_name()
 plt.rcParams["font.family"] = font_prop
 
