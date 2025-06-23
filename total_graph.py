@@ -19,6 +19,8 @@ REGIONS = ["서울", "부산", "대구", "인천", "광주", "대전", "울산",
             "경기", "강원", "충북", "충남", "전북", "전남", "경북", "경남",
             "제주", "세종"]
 
+st.set_page_config(layout="wide")
+
 font_path = "./fonts_na/NanumGothic.ttf"  # 또는 os.path.join(os.path.dirname(__file__), "fonts_na", "NanumGothic.ttf")
 font_prop = fm.FontProperties(fname=font_path)
 plt.rcParams["font.family"] = font_prop.get_name()
@@ -33,7 +35,8 @@ def show_total_graph(year_range):
     all_data_by_level = {1: [], 2: [], 3: []}
     for year in year_range:
         excel_path = IN_DIR / f"{year}년.xlsx"
-        level1, level2, level3 = read_excel(excel_path)        
+        level1, level2, level3 = read_excel(excel_path)      
+        st.write("level1, 2,  3", level1, level2, level3)
 
         for level_df, level in zip([level1, level2, level3], [1, 2, 3]):
             temp = level_df.copy()
@@ -44,8 +47,8 @@ def show_total_graph(year_range):
             temp["연도"] = year
             temp["등급"] = level
             all_data_by_level[level].append(temp)
-    # 각 등급별 탭
-    st.set_page_config(layout="wide")
+            st.write("all data", all_data_by_level)
+    # 각 등급별 탭    
     st.markdown("""
     <style>
         div.block-container {
