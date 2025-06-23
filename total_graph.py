@@ -29,7 +29,7 @@ font_name = fm.FontProperties(fname=font_path).get_name()
 plt.rcParams["font.family"] = font_name
 plt.rcParams["axes.unicode_minus"] = False
 
-
+st.text(f"🎯 현재 Matplotlib 적용된 폰트: {matplotlib.rcParams['font.family']}")
 
 
 
