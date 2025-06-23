@@ -1,5 +1,6 @@
 import requests
 import time
+import streamlit as st
 
 
 def call_solar_ai(prompt):
@@ -13,9 +14,10 @@ def call_solar_ai(prompt):
             "stream": False
         }
     )
+    r = requests.get(OLLAMA_HOST)
     return response.json()["response"]
 
 
-import requests
-r = requests.get("http://localhost:11434")
-print(r.text)  # 콘솔 실행
+
+
+
