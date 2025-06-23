@@ -13,7 +13,7 @@ from generate_prompt import generate_prompt
 from itertools import product
 from matplotlib.ticker import FormatStrFormatter
 from make_folder import IN_DIR
-from save_csv import read_excel
+from clear_data import read_excel
 from call_AI import call_solar_ai
 from translate import translate
 
