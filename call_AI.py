@@ -1,4 +1,5 @@
 import requests
+import streamlit as st
 #https://david-translated-immigrants-progressive.trycloudflare.com
 def call_solar_ai(prompt):
     response = requests.post(
@@ -16,5 +17,5 @@ def call_solar_ai(prompt):
     try:
         return response.json()["response"]
     except Exception as e:
-        print("🚨 JSON 파싱 실패:", e)
+        st.write("🚨 JSON 파싱 실패:", e)
         return ""
