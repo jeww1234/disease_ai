@@ -60,6 +60,7 @@ def show_total_graph(year_range):
 """, unsafe_allow_html=True)
     tabs = st.tabs(["1급 질병", "2급 질병", "3급 질병"])
     for level, tab in zip([1, 2, 3], tabs):
+        st.write("📄 원본 level_df 샘플:", level_df.head())
         with tab:
             
 
