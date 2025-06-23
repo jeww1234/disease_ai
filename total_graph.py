@@ -9,8 +9,7 @@ from generate_prompt import generate_prompt
 from itertools import product
 from matplotlib.ticker import FormatStrFormatter
 from make_folder import IN_DIR
-import matplotlib.font_manager as fm
-from clear_data import read_excel
+from save_csv import read_excel
 from call_AI import call_solar_ai
 from translate import translate
 
@@ -18,11 +17,7 @@ REGIONS = ["서울", "부산", "대구", "인천", "광주", "대전", "울산",
             "경기", "강원", "충북", "충남", "전북", "전남", "경북", "경남",
             "제주", "세종"]
 
-
-font_path = "./fonts_gothic/NanumGothic.ttf"  # 경로는 fonts 폴더 내 위치
-fontprop = fm.FontProperties(fname=font_path)
-plt.rcParams["font.family"] = fontprop.get_name()
-
+plt.rcParams["font.family"] = "Malgun Gothic"
 
 def extract_abbreviation(name: str) -> str:
     match = re.search(r"\(([^)]+)\)", name)
@@ -57,21 +52,15 @@ def show_total_graph(year_range):
     for level, tab in zip([1, 2, 3], tabs):
         with tab:
             data = pd.concat(all_data_by_level[level])    
-            
-
             full_data = data.copy()
             # 질병명 컬럼을 문자열로 한 번만 변환
-            
-            data["질병명"] = data["질병명"].astype(str)   
-
+            data["질병명"] = data["질병명"].astype(str)    
             # NaN이나 float 섞인 문제 방지
-            disease_options = sorted(data["질병명"].unique()) 
-
+            disease_options = sorted(data["질병명"].unique())    
             # 지역 선택
             regions = st.multiselect("지역 선택", options=REGIONS, default='서울', key=f"region_{level}")    
             # 질병 선택
-            disease = st.selectbox("질병 선택", disease_options, key=f"disease_{level}")                
-                        
+            disease = st.selectbox("질병 선택", disease_options, key=f"disease_{level}")                            
             color_map = cm.get_cmap('tab20')  # 20개까지 구분 가능한 색상
             colors = [color_map(i / len(regions)) for i in range(len(regions))]
             years = sorted(data["연도"].unique())            
@@ -99,14 +88,10 @@ def show_total_graph(year_range):
             ax.set_xticklabels(years, fontsize=4)
             ax.set_xlabel("년도", fontsize = 5)
             ax.set_ylabel("건수", fontsize = 5)  
-            st.write("🔍 data:", data) 
-            st.write("🧬 data['질병명']:", data["질병명"])
-            st.write("🧪 unique 질병명:", data["질병명"].unique())
-            st.write("🎯 선택된 disease:", disease, type(disease))
-            if disease and isinstance(disease, str):
-                abbr = extract_abbreviation(disease)
+            if disease:
+                abbr =extract_abbreviation(disease) 
             else:
-                abbr = "질병"
+                abbr = "질병"         
             ax.set_title(f"{abbr} 연도별 지역 비교", fontsize=5)
             fig.tight_layout(pad=0)  # 여백 줄이기
             col1, col2 = st.columns([2,1])
