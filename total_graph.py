@@ -4,6 +4,8 @@ import pandas as pd
 import matplotlib.cm as cm
 import numpy as np
 import re
+import matplotlib
+
 
 
 import matplotlib.font_manager as fm
@@ -20,7 +22,7 @@ REGIONS = ["서울", "부산", "대구", "인천", "광주", "대전", "울산",
             "제주", "세종"]
 
 st.set_page_config(layout="wide")
-
+matplotlib.font_manager._rebuild()
 font_path = "./fonts_na/NanumGothic.ttf"  # 또는 os.path.join(os.path.dirname(__file__), "fonts_na", "NanumGothic.ttf")
 font_prop = fm.FontProperties(fname=font_path)
 plt.rcParams["font.family"] = font_prop.get_name()
