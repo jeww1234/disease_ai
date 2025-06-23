@@ -92,8 +92,6 @@ def show_total_graph(year_range):
                 abbr = extract_abbreviation(disease)
             else:
                 abbr = "질병"
-
-            abbr = extract_abbreviation(disease)             
             ax.set_title(f"{abbr} 연도별 지역 비교", fontsize=5)
             fig.tight_layout(pad=0)  # 여백 줄이기
             col1, col2 = st.columns([2,1])
