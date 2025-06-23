@@ -8,7 +8,7 @@ def read_excel(file_name: str) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame
     try:
         df = pd.read_excel(
             file_name,
-            skiprows=5,
+            header=5,
             usecols="B:BR",
         )
         return clear_data(df)
