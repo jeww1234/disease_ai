@@ -17,7 +17,7 @@ from save_csv import read_excel
 from call_AI import call_solar_ai
 from translate import translate
 
-font_path = Path(__file__).parent / "fonts" / "malgun.ttf"
+font_path = Path(__file__).parent / "fonts_gothic" / "malgun.ttf"
 font_prop = fm.FontProperties(fname=font_path).get_name()
 plt.rcParams["font.family"] = font_prop
 
