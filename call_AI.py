@@ -2,7 +2,7 @@ import requests
 
 def call_solar_ai(prompt):
     response = requests.post(
-        "http://localhost:11434/api/generate",
+        "https://habits-messenger-confidential-wings.trycloudflare.com/api/generate",
         json={
             "model": "solar",  # 또는 정확한 모델 이름 (예: solar:latest)
             "prompt": prompt,
