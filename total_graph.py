@@ -61,7 +61,9 @@ def show_total_graph(year_range):
     tabs = st.tabs(["1급 질병", "2급 질병", "3급 질병"])
     for level, tab in zip([1, 2, 3], tabs):
         with tab:
-            data = pd.concat(all_data_by_level[level])    
+            data = pd.concat(all_data_by_level[level])   
+            data.columns = data.columns.str.strip().str.replace("\u200b", "", regex=True) 
+            st.write("🔍 데이터프레임 컬럼:", data.columns.tolist())
             full_data = data.copy()
             # 질병명 컬럼을 문자열로 한 번만 변환            
             data["질병명"] = data["질병명"].astype(str)   
