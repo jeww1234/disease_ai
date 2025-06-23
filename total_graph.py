@@ -35,8 +35,9 @@ def show_total_graph(year_range):
     all_data_by_level = {1: [], 2: [], 3: []}
     for year in year_range:
         excel_path = IN_DIR / f"{year}년.xlsx"
+        st.write(f"📂 {year}년 엑셀 읽기 시작")
         level1, level2, level3 = read_excel(excel_path)      
-        st.write("level1, 2,  3", level1, level2, level3)
+        st.write("level1,2,3", level1, level2, level3)
 
         for level_df, level in zip([level1, level2, level3], [1, 2, 3]):
             temp = level_df.copy()
